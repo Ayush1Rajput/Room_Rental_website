@@ -19,6 +19,11 @@ async function main() {
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
+
+app.get('/listing',(req,res)=>{
+
+})
+
 app.listen(5050, () => {
   console.log("Server running on 5050");
 });
