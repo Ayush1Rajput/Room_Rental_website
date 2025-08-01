@@ -6,7 +6,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require('ejs-mate');
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/RoomRental";
+require('dotenv').config();
 
 main()
   .then(() => {
@@ -17,18 +17,16 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(process.env.MONGO_URL);
 }
 
 app.set('view-engine',"ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"))
-app.engine('ejs',ejsMate)
+app.engine('ejs',ejsMate);
+app.use(express.static(path.join(__dirname,"public")));
 
-// app.get("/", (req, res) => {
-//   res.send("Hello World");
-// });
 
 // show All list/ data
 app.get('/listings',async (req,res)=>{
