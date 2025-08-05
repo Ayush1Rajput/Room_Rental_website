@@ -1,12 +1,13 @@
+require('dotenv').config();
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Listing =  require('./models/listing/js');
+const Listing =  require('./models/listing.js');
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require('ejs-mate');
 
-require('dotenv').config();
 
 main()
   .then(() => {
@@ -30,8 +31,8 @@ app.use(express.static(path.join(__dirname,"public")));
 
 // show All list/ data
 app.get('/listings',async (req,res)=>{
-  const allListing= await Listing.find({})
-  res.render('/listings/index.ejs',{allListing});
+  const allListings = await Listing.find({})
+  res.render('listings/index.ejs',{allListings});
  
 })
 
