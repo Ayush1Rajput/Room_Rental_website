@@ -1,13 +1,12 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Listing =  require('./models/listing.js');
+const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
-const ejsMate = require('ejs-mate');
-
+const ejsMate = require("ejs-mate");
 
 main()
   .then(() => {
@@ -21,34 +20,32 @@ async function main() {
   await mongoose.connect(process.env.MONGO_URL);
 }
 
-app.set('view-engine',"ejs");
-app.set("views",path.join(__dirname,"views"));
-app.use(express.urlencoded({extended:true}));
-app.use(methodOverride("_method"))
-app.engine('ejs',ejsMate);
-app.use(express.static(path.join(__dirname,"public")));
-
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.engine("ejs", ejsMate);
+app.use(express.static(path.join(__dirname, "public")));
 
 // show All list/ data
-app.get('/listings',async (req,res)=>{
-  const allListings = await Listing.find({})
-  res.render('listings/index.ejs',{allListings});
- 
-})
+app.get("/listings", async (req, res) => {
+  const allListings = await Listing.find({});
+  // console.log(allListings);
+  res.render("listings/index.ejs", { allListings });
+});
 
-// For Creating new data 
+// For Creating new data
 app.get("/listings/new", (req, res) => {
   res.render("listings/new.ejs");
 });
 
-// show perticular data information 
-app.get("/listings/:id",async (req,res)=>{
-  let {id} = req.params;
+// show perticular data information
+app.get("/listings/:id", async (req, res) => {
+  let { id } = req.params;
   const listing = await Listing.findById(id);
-  res.render("listings/show.ejs",{listing});
+  res.render("listings/show.ejs", { listing });
+});
 
-})
-  
 // for save new data
 app.post("/listings", async (req, res) => {
   const newListing = new Listing(req.body.listing);
@@ -77,7 +74,6 @@ app.delete("/listings/:id", async (req, res) => {
   console.log(deletedListing);
   res.redirect("/listings");
 });
-
 
 app.listen(5050, () => {
   console.log("Server running on 5050");
