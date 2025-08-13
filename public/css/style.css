@@ -95,7 +95,21 @@ body{
   background-color: white;
 }
 
+/* New Page  */
+
 .add-btn{
   background-color: red !important;
   border: none !important;
+}
+
+/* Edit page */
+
+.edit-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+img {
+    height: 250px;
+    width: fit-content;
 }
