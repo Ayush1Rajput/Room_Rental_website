@@ -7,6 +7,7 @@ const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const wrapAsync = require("./utils/wrapAsync.js");
 
 main()
   .then(() => {
@@ -30,7 +31,6 @@ app.use(express.static(path.join(__dirname, "public")));
 // show All list/ data
 app.get("/listings", async (req, res) => {
   const allListings = await Listing.find({});
-  // console.log(allListings);
   res.render("listings/index.ejs", { allListings });
 });
 
@@ -46,12 +46,15 @@ app.get("/listings/:id", async (req, res) => {
   res.render("listings/show.ejs", { listing });
 });
 
-// for save new data
-app.post("/listings", async (req, res) => {
-  const newListing = new Listing(req.body.listing);
-  await newListing.save();
-  res.redirect("/listings");
-});
+// for save/Create new data
+app.post(
+  "/listings",
+  wrapAsync(async (req, res) => {
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect("/listings");
+  })
+);
 
 //Edit Route
 app.get("/listings/:id/edit", async (req, res) => {
@@ -73,6 +76,11 @@ app.delete("/listings/:id", async (req, res) => {
   let deletedListing = await Listing.findByIdAndDelete(id);
   console.log(deletedListing);
   res.redirect("/listings");
+});
+
+// Throw an error
+app.use((err, req, res, next) => {
+  res.send("Somthing went wrong");
 });
 
 app.listen(5050, () => {
