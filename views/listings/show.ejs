@@ -26,16 +26,31 @@
     </form>
   </div>
 
+  <!-- Review Part  -->
+
   <div class="col-8 offset-3">
     <h4>Write a Review</h4>
-    <form action="/listings/<%= listing._id %>/reviews" method="POST">
+    <form
+      action="/listings/<%= listing._id %>/reviews"
+      method="POST"
+      novalidate
+      class="needs-validation"
+    >
       <div class="mb-3 mt-3">
         <label for="rating" class="form-label">Rating</label>
-        <input type="range" min="1" max="5" id="rating" name="review[rating]">
+        <input type="range" min="1" max="5" id="rating" name="review[rating]" />
       </div>
       <div class="mb-3 mt-3">
         <label for="comment" class="form-label">Comments</label>
-        <textarea cols="25" rows="5" id="comment" name="review[comment]" class="form-control"></textarea>
+        <textarea
+          cols="25"
+          rows="5"
+          id="comment"
+          name="review[comment]"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="invalid-feedback">Please write some Review !</div>
       </div>
       <button class="btn btn-outline-dark">Submit</button>
     </form>
