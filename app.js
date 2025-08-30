@@ -7,7 +7,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError.js");
 const ejsMate = require("ejs-mate");
-
+const flash = require("connect-flash");
 const session = require("express-session");
 
 const listings = require("./routes/listing.js");
@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, "public")));
 const sessionOptions = {
   secret: "mysecretcode",
   resave: false,
-  saveUninitialzed: true,
+  saveUninitialized: true,
   cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -44,6 +44,12 @@ const sessionOptions = {
 };
 
 app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  next();
+});
 
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
