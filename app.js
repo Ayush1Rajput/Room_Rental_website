@@ -5,13 +5,13 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
-const ExpressError = require('./utils/ExpressError.js');
+const ExpressError = require("./utils/ExpressError.js");
 const ejsMate = require("ejs-mate");
 
-const  session = require('express-session');
+const session = require("express-session");
 
-const listings  = require('./routes/listing.js');
-const reviews = require('./routes/review.js');
+const listings = require("./routes/listing.js");
+const reviews = require("./routes/review.js");
 
 main()
   .then(() => {
@@ -34,16 +34,19 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const sessionOptions = {
   secret: "mysecretcode",
-  resave:false,
-  saveUninitialzed:true
+  resave: false,
+  saveUninitialzed: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
 };
 
 app.use(session(sessionOptions));
 
-
-app.use("/listings",listings);
-app.use("/listings/:id/reviews",reviews);
-
+app.use("/listings", listings);
+app.use("/listings/:id/reviews", reviews);
 
 // app.all("*", (req,res, next)=>{
 //   next(new ExpressError(404, "Page Not Found !"));
