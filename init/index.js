@@ -1,7 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const Listing = require("../models/listing.js");
-const { data: sampleListings } = require("./data.js"); 
+const { data: sampleListings } = require("./data.js");
 
 // Connect to DB
 async function main() {
@@ -16,13 +16,17 @@ async function main() {
   }
 }
 
-
 async function initDB() {
   try {
     await Listing.deleteMany({});
     console.log("Existing listings deleted");
 
-    await Listing.insertMany(sampleListings);
+    const listingsWithOwner = sampleListings.map((obj) => ({
+      ...obj,
+      owner: "652d0081ae547c5d37e56b5f", 
+    }));
+
+    await Listing.insertMany(listingsWithOwner);
     console.log("Sample listings inserted");
   } catch (err) {
     console.error("Seeding failed:", err);
