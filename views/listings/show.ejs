@@ -20,6 +20,8 @@
   </div>
   <br />
 
+  <% if (currUser && listing.owner && listing.owner._id.toString() ===
+  currUser._id.toString()) { %>
   <div class="btns">
     <a
       href="/listings/<%= listing._id %>/edit"
@@ -30,11 +32,13 @@
       <button class="btn btn-dark offset-4">Delete</button>
     </form>
   </div>
+  <% } %>
 
   <hr />
   <!-- Review Part  -->
 
   <div class="col-8 offset-2 mt-3">
+    <% if(currUser) { %>
     <h4>Write a Review</h4>
     <form
       action="/listings/<%= listing._id %>/reviews"
@@ -60,6 +64,7 @@
       </div>
       <button class="btn btn-outline-dark">Submit</button>
     </form>
+    <% } %>
 
     <hr />
 
