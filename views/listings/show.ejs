@@ -19,12 +19,19 @@
     </div>
   </div>
   <br />
-  <div class="btns d-flex gap-2 mt-3 offset-2 mb-2">
-    <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">Edit</a>
-    <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-      <button class="btn btn-danger">Delete</button>
+
+  <% if(currUser && currUser._id.equals(currUser._id)) { %>
+  <div class="btns">
+    <a
+      href="/listings/<%= listing._id %>/edit"
+      class="btn btn-dark col-1 offset-3 edit-btn"
+      >Edit</a
+    >
+    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+      <button class="btn btn-dark offset-4">Delete</button>
     </form>
   </div>
+  <% } %>
 
   <hr />
   <!-- Review Part  -->
