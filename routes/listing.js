@@ -23,6 +23,7 @@ router.get("/:id", wrapAsync(listingController.showListing));
 router.post(
   "/",
   isLoggedIn,
+  upload.single("listing[image]"),
   validateListing,
   wrapAsync(listingController.createListing)
 );
