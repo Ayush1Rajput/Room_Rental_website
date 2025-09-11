@@ -1,4 +1,5 @@
 <% layout("/layouts/boilerplate") %>
+
 <div class="row mt-3">
   <div class="col-8 offset-2">
     <h3><%= listing.title %></h3>
@@ -17,11 +18,11 @@
 
       <%= listing.description %> <br />
       &#8377; <%= listing.price.toLocaleString("en-IN") %> <br />
-      <!-- use for local indian currency -->
       <%= listing.location %> <br />
       <%= listing.country %> <br />
     </div>
   </div>
+
   <br />
 
   <% if (currUser && listing.owner && listing.owner._id.toString() ===
@@ -39,10 +40,10 @@
   <% } %>
 
   <hr />
-  <!-- Review Part  -->
 
+  <!-- Review Part -->
   <div class="col-8 offset-2 mt-3">
-    <% if(currUser) { %>
+    <% if (currUser) { %>
     <h4>Write a Review</h4>
     <form
       action="/listings/<%= listing._id %>/reviews"
@@ -99,6 +100,7 @@
           <label for="first-rate5" title="Amazing">5 stars</label>
         </fieldset>
       </div>
+
       <div class="mb-3 mt-3">
         <label for="comment" class="form-label">Comments</label>
         <textarea
@@ -109,18 +111,19 @@
           class="form-control"
           required
         ></textarea>
-        <div class="invalid-feedback">Please write some Review !</div>
+        <div class="invalid-feedback">Please write some Review!</div>
       </div>
+
       <button class="btn btn-outline-dark">Submit</button>
     </form>
     <% } %>
 
     <hr />
 
-    <% if(listing.reviews.length > 0) { %>
+    <% if (listing.reviews.length > 0) { %>
     <div class="row">
       <p><b>All Reviews</b></p>
-      <% for(review of listing.reviews) { %>
+      <% for (review of listing.reviews) { %>
       <div class="card col-5 ms-3 mb-3">
         <div class="card-body">
           <h5 class="card-title">@<%= review.author.username %></h5>
@@ -131,7 +134,7 @@
           <p class="card-text"><%= review.comment %></p>
         </div>
         <form
-          action="/listings/<%= listing._id%>/reviews/<%= review._id%>?_method=DELETE"
+          action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
           method="POST"
           class="mb-3"
         >
@@ -140,21 +143,25 @@
       </div>
       <% } %>
     </div>
-    <%} %>
+    <% } %>
   </div>
 
   <div class="col-8 offset-3 mb-3">
     <h3>Where you'll be</h3>
-    <div id="map">
-      <script>
-        let mapToken = "<%= process.env.MAP_TOKEN%>";
-        mapboxgl.accessToken = mapToken;
-        const map = new mapboxgl.Map({
-          container: "map", // container ID
-          center: [72.8321, 18.9582], // starting position [lng, lat]. Note that lat must be set between -90 and 90
-          zoom: 9, // starting zoom
-        });
-      </script>
-    </div>
+    <div id="map" style="width: 100%; height: 400px"></div>
+
+    <script>
+      let mapToken = "<%= mapToken %>";
+      let coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
+
+      mapboxgl.accessToken = mapToken;
+      const map = new mapboxgl.Map({
+        container: "map",
+        center: coordinates,
+        zoom: 9,
+      });
+
+      new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
+    </script>
   </div>
 </div>
