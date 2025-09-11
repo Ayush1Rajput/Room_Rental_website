@@ -1,10 +1,10 @@
-body{
+body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.container{
+.container {
   flex: 1;
 }
 
@@ -25,79 +25,78 @@ body{
 /* Footer  */
 
 .f-info-links a {
-    text-decoration: none;
-    color: #222;
+  text-decoration: none;
+  color: #222;
 }
 
 .f-info-links a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .f-info-links,
 .f-info-socials,
 .f-info-brand {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .f-info-socials i {
-    font-size: 1.4rem;
-    margin: .5rem;
+  font-size: 1.4rem;
+  margin: 0.5rem;
 }
 
 .f-info {
-    height: 8rem;
-    background-color: #ebebeb;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: space-evenly;
-    text-align: center;
-    font-size: 1.2rem;
-    margin-top: 4rem;
+  height: 8rem;
+  background-color: #ebebeb;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: space-evenly;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 4rem;
 }
-
 
 /* Cards  */
 
-.card{
+.card {
   border: none !important;
   margin-bottom: 2rem;
 }
 
-.card-img-top{
+.card-img-top {
   border-radius: 1rem !important;
   width: 100% !important;
   object-fit: cover !important;
 }
 
-.card-body{
-  padding:  0 !important;
+.card-body {
+  padding: 0 !important;
 }
 
-.card-text p{
+.card-text p {
   font-weight: 400 !important;
 }
 
-.listing-link{
+.listing-link {
   text-decoration: none;
 }
 
 /* Card Effect  */
 
-.card-img-overlay{
+.card-img-overlay {
   opacity: 0;
 }
-.card-img-overlay:hover{
+.card-img-overlay:hover {
   opacity: 0.3;
   background-color: white;
 }
 
 /* New Page  */
 
-.add-btn{
+.add-btn {
   background-color: red !important;
   border: none !important;
 }
@@ -105,13 +104,13 @@ body{
 /* Edit page */
 
 .edit-btn {
-    background-color: #fe424d !important;
-    border: none !important;
+  background-color: #fe424d !important;
+  border: none !important;
 }
 
 img {
-    height: 250px;
-    width: fit-content;
+  height: 250px;
+  width: fit-content;
 }
 
 /* Show Page  */
@@ -120,4 +119,11 @@ img {
   display: flex;
   gap: 10px;
   margin-top: 1rem;
+}
+
+/* Map */
+
+#map {
+  height: 400px;
+  width: 80vh;
 }

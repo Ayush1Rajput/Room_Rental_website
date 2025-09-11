@@ -5,7 +5,11 @@
   </div>
 
   <div class="card col-6 offset-2">
-    <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="Image" />
+    <img
+      src="<%= listing.image.url %>"
+      class="card-img-top show-img"
+      alt="Image"
+    />
     <div class="card-body">
       <p class="card-text">
         <b><%= listing.title %></b>
@@ -113,8 +117,9 @@
 
     <hr />
 
-    <p><b>All Reviews</b></p>
+    <% if(listing.reviews.length > 0) { %>
     <div class="row">
+      <p><b>All Reviews</b></p>
       <% for(review of listing.reviews) { %>
       <div class="card col-5 ms-3 mb-3">
         <div class="card-body">
@@ -134,6 +139,22 @@
         </form>
       </div>
       <% } %>
+    </div>
+    <%} %>
+  </div>
+
+  <div class="col-8 offset-3 mb-3">
+    <h3>Where you'll be</h3>
+    <div id="map">
+      <script>
+        let mapToken = "<%= process.env.MAP_TOKEN%>";
+        mapboxgl.accessToken = mapToken;
+        const map = new mapboxgl.Map({
+          container: "map", // container ID
+          center: [72.8321, 18.9582], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+          zoom: 9, // starting zoom
+        });
+      </script>
     </div>
   </div>
 </div>
