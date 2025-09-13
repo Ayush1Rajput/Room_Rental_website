@@ -26,7 +26,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(process.env.MONGO_URL);
+  await mongoose.connect(process.env.ATLAS_URL);
 }
 
 app.set("view engine", "ejs");
